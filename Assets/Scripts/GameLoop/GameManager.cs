@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
   [SerializeField]
   public List<GameState> states;
   private int currentStateIndex = 0;
+  private bool isPlayerDying = false;
 
   // Start is called before the first frame update
   void Start()
@@ -20,6 +21,8 @@ public class GameManager : MonoBehaviour
     currentStateIndex = 0;
     Player = Instantiate(playerPrefab, track.StartWaypoint.transform.position,
       Quaternion.identity);
+
+    Player.GetComponent<ObstacleCollision>().OnObstacleCollision += playerCollidesWithObstacle;
 
     foreach (GameState state in states)
     {
@@ -45,6 +48,16 @@ public class GameManager : MonoBehaviour
   {
     ++currentStateIndex;
     states[currentStateIndex].start();
+  }
+
+  private void playerCollidesWithObstacle(GameObject collided, GameObject obstacle)
+  {
+    if (!isPlayerDying)
+    {
+      isPlayerDying = true;
+      StartCoroutine(PlayerDiesCoroutine(2.0f));
+      Debug.Log("Start player dies coroutine");
+    }
   }
 
   private void initGame()
@@ -79,5 +92,20 @@ public class GameManager : MonoBehaviour
   public void restartGame()
   {
     initGame();
+  }
+
+  IEnumerator PlayerDiesCoroutine(float duration)
+  {
+    yield return new WaitForSeconds(duration);
+
+    Player.GetComponent<Rigidbody>().useGravity = false;
+    Player.GetComponent<Rigidbody>().freezeRotation = true;
+    Player.GetComponent<Rigidbody>().velocity = Vector3.zero;
+    Player.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+    PathFollowing playerPathFollowing = Player.GetComponent<PathFollowing>();
+    playerPathFollowing.SetNextWaypoint(track.StartWaypoint);
+    Player.transform.position = track.StartWaypoint.transform.position;
+    Player.transform.rotation = track.StartWaypoint.transform.rotation;
+    isPlayerDying = false;
   }
 }

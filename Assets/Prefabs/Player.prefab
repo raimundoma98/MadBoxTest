@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4886602052848973130}
   - component: {fileID: 8297509520228799462}
   - component: {fileID: 1669505759851944622}
+  - component: {fileID: -1305871953306327570}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -62,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a99bd9fab0a191741beabd68293ab466, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -123,7 +124,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &1669505759851944622
 MonoBehaviour:
@@ -138,6 +139,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 200
+--- !u!114 &-1305871953306327570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3072680585405312179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3208abcea24c0e44bab5f1b97fe4c6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  impulseMultiplier: 100
 --- !u!1 &7886151801367730066
 GameObject:
   m_ObjectHideFlags: 0
