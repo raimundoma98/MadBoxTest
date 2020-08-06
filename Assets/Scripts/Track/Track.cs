@@ -6,6 +6,7 @@ public class Track : MonoBehaviour
 {
   [SerializeField]
   private Waypoint startWaypoint;
+  public Waypoint StartWaypoint { get { return startWaypoint; } }
 
   public float TrackLength { get; private set; }
   
@@ -17,6 +18,8 @@ public class Track : MonoBehaviour
     {
       TrackLength += Vector3.Distance(current.transform.position,
         current.Next.transform.position);
+
+      current = current.Next;
     }
   }
 
